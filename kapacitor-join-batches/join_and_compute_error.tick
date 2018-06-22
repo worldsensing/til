@@ -1,0 +1,38 @@
+dbrp "some_database"."autogen"
+
+// Define a batch query that retrieves 1 minute realtime data every 1s
+// It's a good practice to use a tag ('sensor_id') in the groupBy statement instead of * (star)
+// With the last statement we ensure that we get the last (fresh) entry
+var realtime = batch
+                |query('SELECT speed as realtime_speed FROM "some_database"."autogen"."realtime"')
+                    .period(1m)
+                    .every(1s)
+                    .groupBy('sensor_id')
+                |last('realtime_speed')
+                    .as('realtime_speed')
+
+var predicted = batch
+                  |query('SELECT speed as predicted_speed FROM "measurements"."autogen"."predicted"')
+                      .period(1m)
+                      .every(1s)
+                      .groupBy('sensor_id')
+                  |last('predicted_speed')
+                      .as('predicted_speed')
+
+// Now we can join them using the join node.
+// The property tolerance property method allows us to join two entries with one minute of difference
+var joined_data = realtime
+                    |join(predicted)
+                        .as('realtime', 'predicted')
+                        .fill(0.0)
+                        .tolerance(1m)
+
+// The eval chaining method (node) allows us to compute the difference
+var performance_error = joined_data
+                          |eval(lambda: "realtime.realtime_speed" - "predicted.predicted_speed")
+                            .as('performance_error')
+
+performance_error
+  |influxDBOut()
+    .database('some_database')
+    .measurement('performance_error')
