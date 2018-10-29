@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WS_Test</string>
+    <string name="login">Login</string>
+    <string name="logged">Hey! Welcome back!</string>
+</resources>
