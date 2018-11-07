@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  alerts_processor:
+    image: worldsensing/sw_chapter_debugging:1.0.0
+    stdin_open: true
+    tty: true    

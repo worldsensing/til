@@ -1,0 +1,5 @@
+pudb==2018.1
+ipdb==0.11
+curlify==2.1.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0

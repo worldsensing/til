@@ -1,0 +1,4 @@
+logger:
+  level: DEBUG
+  stdout: true
+  to_file: false
