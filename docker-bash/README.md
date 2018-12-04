@@ -31,20 +31,24 @@ chmod u+x kill_ps_on_port.sh
 Another option is to copy the content of the script inside a function in your `~/.bashrc` file:
 ```bash
 kill_ps_on_port () {
-for arg in "$@"
+for port in "$@"
 do
-    proc=$(sudo lsof -t -i:$arg)
-    if [ -z "$proc" ]
+    procs=$(sudo lsof -t -i:$port)
+    if [ -z "$procs" ]
     then
-        echo "No process found using port $arg"
+        echo "No process found using port $port"
     else
-        echo "Killing process $proc"
-        k=$(sudo kill -9 $proc)
-        ret_code=$?
-        if [ $ret_code != 0 ]
-        then
-            echo "Can't kill process"
-        fi
+        for proc in $procs
+        do
+            echo "Process $proc using port $port"
+            echo "Killing process $proc"
+            k=$(sudo kill -9 $proc)
+            ret_code=$?
+            if [ $ret_code != 0 ]
+            then
+                echo "Can't kill process"
+            fi
+        done
     fi
 done
 }
