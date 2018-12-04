@@ -21,7 +21,7 @@ ports as input, and it will try to kill all processes running on them.
 
 First time, you will need to give execution permissions to the script with `chmod`.
 Then, launch the program with the port numbers, e.g `5432` and `9092` to kill the processes running a Postgres database 
-and Kapacitor respectively on these ports.
+and Kapacitor respectively on these ports (you will be asked to input your sudo password).
 
 ```bash
 chmod u+x kill_ps_on_port.sh
