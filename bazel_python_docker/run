@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo bazel run //app:app
