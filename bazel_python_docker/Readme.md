@@ -187,9 +187,10 @@ container_image(
     cmd = ["ARG1"],                      # You can add arguments for the execution
     env = {                              # (example: python main.py arg1 arg2 arg3)
         "PATH": "",                      # Remove PATH, to disable execution of container
-    }					 # This part is very important. Because with this, nobody can "enter" in your
-)					 # container and add/remove files/folders. It improve the security.
-
+    }					 # This part is very important. Because with this, nobody can "enter" 
+)					 # in your container because there is no shell available. Without shell
+					 # the security improves a lot, preventing an attacker to create files 
+					 # in mounted volumes or grant access to the Docker host server for example.
 ```
 # Sources
 https://github.com/GoogleContainerTools/distroless
