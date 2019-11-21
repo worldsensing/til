@@ -1,0 +1,5 @@
+version: "3"
+services:
+  connector:
+    image: bazel/app:app
+    env_file: ./app/env
