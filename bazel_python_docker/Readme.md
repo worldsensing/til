@@ -17,7 +17,7 @@
 └── WORKSPACE
 ```
 
-## ./run
+## run
 
 ```sh
 #!/bin/bash
@@ -25,7 +25,7 @@
 sudo bazel run //app:app    # Create a docker image
 ```
 
-## ./WORKSPACE
+## WORKSPACE
 
 ```sh
 ## Download the rules_docker repository at release v0.12.1##
@@ -101,7 +101,7 @@ load("@my_deps//:requirements.bzl", "pip_install")
 pip_install()
 ```
 
-## ./docker-compose.yml
+## docker-compose.yml
 ```sh
 version: "3"
 services:
@@ -110,31 +110,31 @@ services:
     env_file: ./app/env
 ```
 
-## ./BUILD
+## BUILD
 
 EMPTY FILE (Required because of bazel bug...)
 
-## ./app/env
+## app/env
 Write all your environment variables.  
 Example:
 ```sh
 PATH=/usr/bin/
 INTERVAL=30
 ```
-## ./app/requirement.txt
+## app/requirement.txt
 Write all the python libraries you want to install.  
 Example:
 ```sh
 pygame
 flask
 ```
-## ./app/src
+## app/src
 Put in app/src all the files needed to run your app.
 ```sh
 src
 └── main.py
 ```
-## ./app/BUILD
+## app/BUILD
 ### py_library
 Create your python library with all the libraries you have put in requirement.txt
 ```sh
@@ -187,8 +187,8 @@ container_image(
     cmd = ["ARG1"],                      # You can add arguments for the execution
     env = {                              # (example: python main.py arg1 arg2 arg3)
         "PATH": "",                      # Remove PATH, to disable execution of container
-    }
-)
+    }					 # This part is very important. Because with this, nobody can "enter" in your
+)					 # container and add/remove files/folders. It improve the security.
 
 ```
 # Sources
