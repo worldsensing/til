@@ -1,0 +1,9 @@
+{
+	"proxies": {
+		"default": {
+			"httpProxy": "http://172.24.244.241:3128",
+			"httpsProxy": "http://172.24.244.241:3128",
+			"noProxy": "172.24.244.81, 172.24.244.82, 172.24.244.83, some-internal-url.com, another-internal-url.net, postgres"
+		}
+	}
+}
